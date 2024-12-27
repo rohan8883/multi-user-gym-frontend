@@ -42,6 +42,16 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 const SideBar = [
   {
     icon: User,
+    label: 'Add Owner',
+    path: '/gym-app/add-owner'
+  },
+  {
+    icon: List,
+    label: 'Owners List',
+    path: '/gym-app/owner-list'
+  },
+  {
+    icon: User,
     label: 'Add Member',
     path: '/gym-app/add-member'
   },

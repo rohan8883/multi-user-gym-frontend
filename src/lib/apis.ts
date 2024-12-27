@@ -21,6 +21,24 @@ export const authApi = {
 } as const;
 
 export const gymApi = {
+  // ════════════════════════════║  API OF USERS MASTER ║═════════════════════════════════
+  // createUser: '/user/create-user',
+  createUser: '/user/create-user-with-image',
+  getAllUser: '/user/get-all-user',
+  getAllUserMasterList: '/user/get-all-user-mater-list',
+  getAllUserByUlb: '/user/get-all-user-by-ulb',
+  updateUser: '/user/update-profile',
+  deleteUser: '/user/delete-user',
+  getUserById: '/user/edit',
+  updateUserStatus: '/user/update-user-status',
+
+
+  createOwner: '/member/create-owner',
+  getAllOwners: '/member/get-owners',
+  getOwner: '/member/get-owner-by-id',
+  updateOwner: '/member/update-owner',
+
+
   createMember: '/member/create-member',
   getMember: '/member/get-member',
   updateMember: '/member/update-member',

@@ -16,9 +16,8 @@ export type { AxiosRequestConfig, AxiosResponse };
 //   }
 // };
 
-export const BASE_URI = 'https://fitnessfirstsapi.algoworks.online';
 // export const BASE_URI = 'https://gmtestingapi.algoworks.online';
-// export const BASE_URI = 'http://localhost:8004';
+export const BASE_URI = 'http://localhost:3008';
 // export const BASE_URI = URL();
 
 const axiosInstance = axios.create({

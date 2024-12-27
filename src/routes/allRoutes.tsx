@@ -42,11 +42,20 @@ const Profile = lazyWithRetries(() => import('@/pages/gym-app/profile'));
 const ChangePassword = lazyWithRetries(
   () => import('@/pages/gym-app/change-password')
 );
-const MemberList = lazyWithRetries(() => import('@/pages/gym-app/member-list'));
+
+const AddOwner = lazyWithRetries(() => import('@/pages/gym-app/add-owner'));
+const OwnerList = lazyWithRetries(() => import('@/pages/gym-app/owner-list'));
+const UpdateOwner = lazyWithRetries(
+  () => import('@/pages/gym-app/update-owner')
+);
+
+
 const AddMember = lazyWithRetries(() => import('@/pages/gym-app/add-member'));
+const MemberList = lazyWithRetries(() => import('@/pages/gym-app/member-list'));
 const UpdateMember = lazyWithRetries(
   () => import('@/pages/gym-app/update-member')
 );
+
 const ViewMember = lazyWithRetries(() => import('@/pages/gym-app/view-member'));
 const Payment = lazyWithRetries(() => import('@/pages/gym-app/payment'));
 const PaymentList = lazyWithRetries(
@@ -245,7 +254,25 @@ const routes: Route[] = [
         name: 'Change Password',
         path: 'change-password',
         element: <ChangePassword />
-      }
+      },
+      {
+        id: '19',
+        name: 'Add Owner',
+        path: 'add-owner',
+        element: <AddOwner />
+      },
+      {
+        id: '20',
+        name: 'Owner List',
+        path: 'owner-list',
+        element: <OwnerList />
+      },
+      {
+        id: '21',
+        name: 'Owner List',
+        path: 'update-owner/:id',
+        element: <UpdateOwner />
+      },
     ]
   },
 
