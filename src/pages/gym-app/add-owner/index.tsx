@@ -21,10 +21,12 @@ import { Confirm } from '@/components/react-confirm-box';
 import { resizeFile } from '@/lib/resizeImage';
 
 const schema = yup.object().shape({
-  fullName: yup.string().required('Member Name is required'),
+  fullName: yup.string().required('Name is required'),
+  gymName: yup.string().required('Gym Name is required'),
   address: yup.string().required('Address is required'),
   mobile: yup.string().required('Mobile is required'),
-  email: yup.string().notRequired().email().label('Email'),
+  email: yup.string().required().email().label('Email'),
+  // email: yup.string().notRequired().email().label('Email'),
   //  imageUrl not required
   imageUrl: yup.mixed().nullable(),
 });
@@ -44,6 +46,7 @@ export default function AddOwner() {
       fullName: '',
       address: '',
       mobile: '',
+      gymName: '',
       email: '',
       imageUrl: null,
     },
@@ -53,6 +56,7 @@ export default function AddOwner() {
   const onSubmit = async (data: AddMemberType) => {
     const formData = new FormData();
     formData.append('fullName', data.fullName);
+    formData.append('gymName', data.gymName);
     formData.append('address', data.address);
     formData.append('mobile', data.mobile);
     formData.append('email', data?.email ?? '');
@@ -100,10 +104,11 @@ export default function AddOwner() {
   }, [files]);
 
   return (
-    <Page title="Add Owner">
-      <div className="flex items-center justify-between mt-4">
+    <Page title="Registration Form " className='border  mx-2 bg-white shadow-md rounded-lg'>
+      
+      <div className="flex items-center justify-between mt-4 ">
         <h1 className="text-base font-semibold text-muted-foreground">
-          ADD OWNER
+        Registration Form
         </h1>
       </div>
       <div className="border-t border-secondary mt-3"></div>
@@ -133,7 +138,13 @@ export default function AddOwner() {
                 inputValidation={['mobile', 'number']}
               />
             </div>
-           
+            <div>
+              <RHFTextField
+                name="gymName"
+                label="Gym Name"
+                placeholder="Enter Gym Name"
+              />
+            </div>
            
           
             <div className="col-span-2">
@@ -160,7 +171,7 @@ export default function AddOwner() {
           </div>
         </div>
       
-            <div className="mt-8 flex justify-center">
+            <div className="mt-8 flex justify-center mb-4">
               <ButtonLoading
                 type="submit"
                 className="bg-primary text-white"

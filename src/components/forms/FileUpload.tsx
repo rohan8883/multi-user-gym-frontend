@@ -27,7 +27,7 @@ const FileSvgDraw = () => {
         />
       </svg>
       <p className="mb-1 text-sm text-gray-500 dark:text-gray-400">
-        <span className="font-semibold text-xs">Click to upload profile</span>
+        <span className="font-semibold text-xs">Click to upload images</span>
         &nbsp; or drag and drop
       </p>
       <p className="text-xs text-gray-500 dark:text-gray-400">

@@ -39,7 +39,7 @@ import { useStore } from '@/store';
 import { Image } from '../image';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
-const SideBar = [
+const AdminSideBar = [
   {
     icon: User,
     label: 'Add Owner',
@@ -76,6 +76,43 @@ const SideBar = [
     path: '/gym-app/month-plan-report'
   }
 ];
+const SideBar = [
+  // {
+  //   icon: User,
+  //   label: 'Add Owner',
+  //   path: '/gym-app/add-owner'
+  // },
+  // {
+  //   icon: List,
+  //   label: 'Owners List',
+  //   path: '/gym-app/owner-list'
+  // },
+  {
+    icon: User,
+    label: 'Add Member',
+    path: '/gym-app/add-member'
+  },
+  {
+    icon: List,
+    label: 'Plan Master List',
+    path: '/gym-app/masters/plan'
+  },
+  // {
+  //   icon: List,
+  //   label: 'Month Master List',
+  //   path: '/gym-app/masters/month'
+  // },
+  {
+    icon: List,
+    label: 'Plan Mapping List',
+    path: '/gym-app/masters/plan-mapping'
+  },
+  {
+    icon: List,
+    label: 'Report',
+    path: '/gym-app/month-plan-report'
+  }
+];
 
 export default function SideBarMenu({
   children
@@ -91,12 +128,13 @@ export default function SideBarMenu({
   const handleNavigate = (path: string) => {
     navigate(path);
   };
-
+  const currentSidebar = user?.roleId == '67193213e0e76d08635e31fb' ? AdminSideBar : SideBar;
+  
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
         <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
-          {SideBar.map((item, index) => (
+          {currentSidebar.map((item, index) => (
             <Tooltip key={index + 1}>
               <TooltipTrigger asChild>
                 <Link
@@ -187,7 +225,7 @@ export default function SideBarMenu({
 
                   {/* line */}
                   <div className="border-t border-secondary w-full" />
-                  {SideBar.map((item, index) => (
+                  {currentSidebar.map((item, index) => (
                     <div
                       key={index + 1}
                       onClick={() => handleNavigate(item.path)}
