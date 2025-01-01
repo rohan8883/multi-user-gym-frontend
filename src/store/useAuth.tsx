@@ -5,6 +5,7 @@ import { create } from 'zustand';
 export type IUser = {
   _id: string;
   fullName: string;
+  gymName: string;
   roleId: string;
   mobile: string;
   email: string;

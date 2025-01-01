@@ -62,12 +62,12 @@ const GymReceipt = () => {
           {/* Receipt Header */}
           <div className="bg-primary text-white p-4 rounded-t-lg flex items-center justify-between">
             <img
-              src="/logoImg.png"
+              src={receiptData?.data?.userDetails?.fullImgUrl}
               alt="Gym Logo"
               className="absolute rounded-xl opacity-10 mt-2 h-44 w-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
             />
             <div className="text-center  z-10 flex-1">
-              <h1 className="text-lg font-bold">Fitness Firsts GYM</h1>
+              <h1 className="text-lg font-bold">{receiptData?.data?.userDetails?.gymName}</h1>
               <p className="text-sm opacity-90">Payment Receipt</p>
             </div>
           </div>
@@ -205,7 +205,7 @@ const GymReceipt = () => {
             <div className="text-center text-xs text-gray-500 space-y-1 pt-4 border-t">
               <p>Member ID: {receiptData?.data?.data?.memberId?.generatedId}</p>
               <p className="font-medium">
-                Thank you for choosing Fitness firsts Gym
+                Thank you for choosing {receiptData?.data?.userDetails?.gymName}
               </p>
             </div>
           </div>

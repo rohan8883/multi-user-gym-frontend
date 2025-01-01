@@ -37,4 +37,15 @@ export type I_PAYMENT_RECEIPT = {
     createdAt: string;
     updatedAt: string;
   };
+  userDetails: {
+    _id: string,
+    fullName: string ,
+    gymName: string,
+    roleId: string,
+    mobile: number,
+    email: string,
+    address: string,
+    status: 1,
+    fullImgUrl: string,
+}
 };

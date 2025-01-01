@@ -238,31 +238,13 @@ export default function SideBarMenu({
                 </nav>
               </SheetContent>
             </Sheet>
-            <Breadcrumb className="hidden md:flex ">
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link to="#">Dashboard</Link>
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link to="#">Orders</Link>
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Recent Orders</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+            
             <div className="relative ml-auto flex-1 md:grow-0">
               {equalPath?.includes(pathname) ? (
                 <div className="flex justify-center items-center gap-4">
                   <Dumbbell className="h-6 w-6 text-primary" />
                   <h1 className="font-semibold text-center text-lg text-primary -ml-2">
-                    Fitness Firsts
+                    {user?.gymName || "GymSphere"}
                   </h1>
                 </div>
               ) : (
