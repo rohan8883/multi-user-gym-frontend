@@ -14,6 +14,7 @@ import { authApi } from '@/lib';
 
 const schema = yup.object({
   fullName: yup.string().required(),
+  gymName: yup.string(),
   mobile: yup.string().required(),
   email: yup.string().email().required(),
   address: yup.string(),
@@ -40,6 +41,7 @@ export default function EditProfile({
   const methods = useForm({
     defaultValues: {
       fullName: user?.fullName,
+      gymName: user?.gymName,
       mobile: user?.mobile,
       email: user?.email,
       address: user?.address,
@@ -55,6 +57,7 @@ export default function EditProfile({
         api: authApi.updateProfile,
         data: {
           fullName: data.fullName,
+          gymName: data.gymName,
           mobile: data.mobile,
           address: data.address,
           zipCode: data.zipCode
@@ -130,6 +133,13 @@ export default function EditProfile({
                       name="fullName"
                       inputValidation={['removeDoubleSpace']}
                       placeholder="Full Name"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <RHFTextField
+                      name="gymName"
+                      inputValidation={['removeDoubleSpace']}
+                      placeholder="GYM Name"
                     />
                   </div>
                   <div className="space-y-2">

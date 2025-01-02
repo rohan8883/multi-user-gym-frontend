@@ -51,6 +51,14 @@ axiosInstance.interceptors.response.use(
       alert('Session Expired');
       window.location.reload();
     }
+    if(response.data?.isAuthenticated=='false'){
+      delete axiosInstance.defaults.headers.common.Authorization;
+      localStorage.removeItem('token');
+      localStorage.removeItem('refreshToken');
+      localStorage.setItem('authenticated', response.data?.authenticated);
+      // window.location.href = '/auth/login';
+      window.location.reload();
+    }
     return response;
   },
   async (error) => {
