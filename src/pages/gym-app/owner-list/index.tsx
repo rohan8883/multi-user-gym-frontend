@@ -41,11 +41,11 @@ export default function OwnerList() {
   });
 
   const handleDelete = async (id: string) => {
-    Confirm('Are you sure?', 'Do you want to delete this owner?', async () => {
+    Confirm('Are you sure?', 'Do you want to delete this Owner?', async () => {
       try {
         const res = await deleteMutation.mutateAsync({
-          api: `${gymApi.deleteMember}/${id}`,
-          key: 'deleteOwner',
+          api: `${gymApi.updateOwnerStatus}/${id}`,
+          key: 'updateOwnerStatus',
           value: id
         });
         if (res.data.success) {
