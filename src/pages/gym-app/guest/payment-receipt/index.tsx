@@ -1,12 +1,12 @@
 import { Card } from '@/components/ui/card';
 import { useParams } from 'react-router-dom';
-import { Share, Printer, Clock, CheckCircle2 } from 'lucide-react';
+import {  Clock, CheckCircle2 } from 'lucide-react';
 import Page from '@/components/helmet-page';
 import { useApi } from '@/hooks/useCustomQuery';
 import { gymApi } from '@/lib';
 import { I_PAYMENT_RECEIPT } from './type';
 import Spinner from '@/components/loaders/Spinner';
-import { Button } from '@/components/ui/button';
+
 
 const GymReceipt = () => {
   const { id } = useParams<{ id: string }>();
@@ -37,19 +37,19 @@ const GymReceipt = () => {
     );
   }
 
-  const printReceipt = () => {
-    const originalContent = document.body.innerHTML;
-    const printContent =
-      document.getElementById('printable-section')?.innerHTML;
+  // const printReceipt = () => {
+  //   const originalContent = document.body.innerHTML;
+  //   const printContent =
+  //     document.getElementById('printable-section')?.innerHTML;
 
-    if (printContent) {
-      document.body.innerHTML = printContent;
-      window.print();
-      // Restore the original content after printing
-      document.body.innerHTML = originalContent;
-      window.location.reload(); // To refresh the page and restore functionality
-    }
-  };
+  //   if (printContent) {
+  //     document.body.innerHTML = printContent;
+  //     window.print();
+  //     // Restore the original content after printing
+  //     document.body.innerHTML = originalContent;
+  //     window.location.reload(); // To refresh the page and restore functionality
+  //   }
+  // };
 
   return (
     <Page title="Payment Receipt" className="bg-gray-100">
