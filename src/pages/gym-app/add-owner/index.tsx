@@ -25,6 +25,7 @@ const schema = yup.object().shape({
   gymName: yup.string().required('Gym Name is required'),
   address: yup.string().required('Address is required'),
   mobile: yup.string().required('Mobile is required'),
+  password: yup.string().required('Password is required'),
   email: yup.string().required().email().label('Email'),
   // email: yup.string().notRequired().email().label('Email'),
   //  imageUrl not required
@@ -44,6 +45,7 @@ export default function AddOwner() {
   const method = useForm<AddMemberType>({
     defaultValues: {
       fullName: '',
+      password: '',
       address: '',
       mobile: '',
       gymName: '',
@@ -57,6 +59,7 @@ export default function AddOwner() {
     const formData = new FormData();
     formData.append('fullName', data.fullName);
     formData.append('gymName', data.gymName);
+    formData.append('password', data.password);
     formData.append('address', data.address);
     formData.append('mobile', data.mobile);
     formData.append('email', data?.email ?? '');
@@ -143,6 +146,13 @@ export default function AddOwner() {
                 name="gymName"
                 label="Gym Name"
                 placeholder="Enter Gym Name"
+              />
+            </div>
+            <div>
+              <RHFTextField
+                name="password"
+                label="Password"
+                placeholder="Enter Password"
               />
             </div>
            
