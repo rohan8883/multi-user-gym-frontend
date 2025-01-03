@@ -1,6 +1,6 @@
 {
-  "name": "Fitness Firsts",
-  "short_name": "Fitness Firsts",
+  "name": "GymSphere App",
+  "short_name": "GymSphere App",
   "display": "standalone",
   "start_url": ".",
   "theme_color": "#7c3aef",
