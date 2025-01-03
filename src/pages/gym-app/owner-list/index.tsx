@@ -8,7 +8,7 @@ import { useApi, usePutMutation } from '@/hooks/useCustomQuery';
 import { gymApi } from '@/lib';
 import PaginationComponent from '@/components/pagination';
 import SearchBox from '@/components/search-box';
-import { Eye, PencilIcon, Trash, Plus } from 'lucide-react';
+import { Eye, PencilIcon, Plus } from 'lucide-react';
 import LoaderList from '@/components/loader-list';
 import {
   Tabs,
@@ -16,7 +16,7 @@ import {
   TabsList,
   TabsTrigger
 } from '@/components/ui/tabs';
-import { Confirm } from '@/components/react-confirm-box';
+
 import toast from 'react-hot-toast';
 import OverLayLoader from '@/components/loaders/OverLayLoader';
 
@@ -30,7 +30,7 @@ export default function OwnerList() {
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState(memberStatus ?? '');
   const deleteMutation = usePutMutation({});
-
+  const putMutation = usePutMutation({});
   const memberListData = useApi<any>({
     api: `${gymApi.getAllOwners}?page=${page}&limit=${limit}&q=${search}`,
     key: 'getAllOwners',
@@ -39,26 +39,23 @@ export default function OwnerList() {
       enabled: true
     }
   });
-
-  const handleDelete = async (id: string) => {
-    Confirm('Are you sure?', 'Do you want to delete this Owner?', async () => {
-      try {
-        const res = await deleteMutation.mutateAsync({
-          api: `${gymApi.updateOwnerStatus}/${id}`,
-          key: 'updateOwnerStatus',
-          value: id
-        });
-        if (res.data.success) {
-          toast.success(res.data.message);
-          memberListData.refetch();
-        } else {
-          toast.error(res.data.message);
-        }
-      } catch {
-        toast.error('Something went wrong');
+  const deactivateMonth = async (mId: string) => {
+    try {
+      const res = await putMutation.mutateAsync({
+        api: `${gymApi.updateOwnerStatus}/${mId}`
+      });
+      if (res.data.success) {
+        toast.success(res.data.message);
+        memberListData.refetch();
+      } else {
+        toast.error(res.data.message);
       }
-    });
+    } catch {
+      toast.error('Something went wrong');
+    }
   };
+
+ 
 
   return (
     <Page title="Owner List">
@@ -155,10 +152,10 @@ export default function OwnerList() {
       >
         {/*  */}
         <div className="grid grid-cols-1 gap-3 mt-2">
-          {memberListData.data?.data?.owners.map((data:any, index:any) => (
+          {memberListData.data?.data?.owners.map((data: any, index: any) => (
             <Card
               key={index + 1}
-              // className=" shadow-none rounded-2xl bg-secondary"
+            // className=" shadow-none rounded-2xl bg-secondary"
             >
               <div className="p-2">
                 <div className="flex items-center justify-between">
@@ -235,18 +232,14 @@ export default function OwnerList() {
                 </Button>
                 <Button
                   size={'sm'}
-                  variant="outline"
                   className={
-                    data?.status == 1
-                      ? ' text-red-700 border-red-700 w-full h-6'
-                      : ' text-green-700 border-green-700 w-full h-6'
+                    data.status == 1
+                      ? 'bg-destructive'
+                      : 'bg-green-700'
                   }
-                  onClick={() => handleDelete(data._id)}
+                  onClick={() => deactivateMonth(data._id)}
                 >
-                  {data?.status == 1 ? <Trash size={16} /> : <Plus size={16} />}
-                  <h1 className="ms-1 text-xs">
-                    {data?.status == 1 ? 'Delete' : 'Activate'}
-                  </h1>
+                  {data.status == 1 ? 'Deactivate' : 'Activate'}
                 </Button>
               </div>
             </Card>

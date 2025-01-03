@@ -5,12 +5,12 @@ import Page from '@/components/helmet-page';
 import { useApi } from '@/hooks/useCustomQuery';
 import { gymApi } from '@/lib';
 import Spinner from '@/components/loaders/Spinner';
-import { MEMBER_DETAIL } from '../view-member/type';
+// import { MEMBER_DETAIL } from '../view-member/type';
 import moment from 'moment';
-import profile from '/public/user.png'
+// import profile from '/public/user.png'
 const GymReceipt = () => {
   const { id } = useParams<{ id: string }>();
-  const getMemberDetail = useApi<MEMBER_DETAIL>({
+  const getMemberDetail = useApi<any>({
     api: `${gymApi.getMember}/${id}`,
     key: 'get-member-gym-id-card',
     value: [id],
@@ -43,6 +43,7 @@ const GymReceipt = () => {
     );
   }
 
+
   return (
     <Page title="Member GYM ID Card" className="bg-gray-100">
       <div className="flex justify-center mt-4">
@@ -53,9 +54,9 @@ const GymReceipt = () => {
           {/* Watermark */}
           <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none z-0">
             <img
-              src="/logoImg.png"
+             src={getMemberDetail?.data?.data?.userDetails?.fullImgUrl}
               alt="Watermark Logo"
-              className="w-80 opacity-20"
+              className="w-80 opacity-40"
             />
           </div>
 
@@ -66,7 +67,7 @@ const GymReceipt = () => {
 
             {/* Logo and Title */}
             <div className="text-white mb-8">
-              <h3 className="text-xl font-bold">FITNESS FIRSTS</h3>
+              <h3 className="text-xl font-bold uppercase">{getMemberDetail?.data?.data?.userDetails?.gymName}</h3>
               <p className="text-xs text-gray-300">
                 Professional Training Services
               </p>
@@ -76,7 +77,7 @@ const GymReceipt = () => {
             <div className="flex flex-col items-center mb-6">
               <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center mb-4">
                 <img
-                  src={ getMemberDetail?.data?.data?.fullImgUrl != "https://fitnessfirstsapi.algoworks.online/undefined" ? getMemberDetail?.data?.data?.fullImgUrl : profile }
+                  src={ getMemberDetail?.data?.data?.fullImgUrl}
                   alt="Member"
                   className="w-24 h-24 rounded-full"
                 />
@@ -89,7 +90,7 @@ const GymReceipt = () => {
               </p>
               <p className="text-gray-400 font-semibold tracking-wider mb-4 text-sm w-72 text-center truncate">
                 {getMemberDetail?.data?.data?.planMappingId
-                  ?.map((data) => data.plan)
+                  ?.map((data:any) => data.plan)
                   .join(', ')}
               </p>
             </div>

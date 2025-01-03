@@ -75,4 +75,5 @@ export type MEMBER_DETAIL = {
   success: boolean;
   message: string;
   data: memberType;
+
 };

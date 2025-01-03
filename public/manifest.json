@@ -1,6 +1,6 @@
 {
-  "name": "GymSphere App",
-  "short_name": "GymSphere App",
+  "name": "GymSphere",
+  "short_name": "GymSphere",
   "display": "standalone",
   "start_url": ".",
   "theme_color": "#7c3aef",

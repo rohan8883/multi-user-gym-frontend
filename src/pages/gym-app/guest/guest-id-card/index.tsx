@@ -3,11 +3,11 @@ import Page from '@/components/helmet-page';
 import { useApi } from '@/hooks/useCustomQuery';
 import { gymApi } from '@/lib';
 import Spinner from '@/components/loaders/Spinner';
-import { MEMBER_DETAIL } from '../../view-member/type';
+// import { MEMBER_DETAIL } from './type';
 import moment from 'moment';
 const GymReceipt = () => {
   const { id } = useParams<{ id: string }>();
-  const getMemberDetail = useApi<MEMBER_DETAIL>({
+  const getMemberDetail = useApi<any>({
     api: `${gymApi.getMemberByIdGuest}/${id}`,
     key: 'get-member-gym-id-card-guest',
     value: [id],
@@ -32,13 +32,13 @@ const GymReceipt = () => {
         <h1 className="text-xl font-bold text-gray-800">Member GYM ID Card</h1>
       </div>
       <div className="mt-4">
-        <div className="w-full h-[500px] bg-gradient-to-br from-blue-900 to-black rounded-lg overflow-hidden shadow-xl relative">
+        <div className="max-w-md mx-auto bg-white  z-10 h-[500px] bg-gradient-to-br from-blue-900 to-black rounded-lg overflow-hidden shadow-xl relative">
           {/* Watermark */}
           <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none z-0">
             <img
-              src="/logoImg.png"
+              src={getMemberDetail?.data?.data?.userDetails?.fullImgUrl}
               alt="Watermark Logo"
-              className="w-80 opacity-20"
+              className="w-80 opacity-40"
             />
           </div>
 
@@ -49,7 +49,7 @@ const GymReceipt = () => {
 
             {/* Logo and Title */}
             <div className="text-white mb-8">
-              <h3 className="text-xl font-bold">FITNESS FIRSTS</h3>
+              <h3 className="text-xl font-bold">{getMemberDetail?.data?.userDetails?.gymName}</h3>
               <p className="text-xs text-gray-300">
                 Professional Training Services
               </p>
@@ -72,7 +72,7 @@ const GymReceipt = () => {
               </p>
               <p className="text-gray-400 font-semibold tracking-wider mb-4 text-sm w-72 text-center truncate">
                 {getMemberDetail?.data?.data?.planMappingId
-                  ?.map((data) => data.plan)
+                  ?.map((data:any) => data.plan)
                   .join(', ')}
               </p>
             </div>
