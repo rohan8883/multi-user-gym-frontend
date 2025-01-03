@@ -191,7 +191,7 @@ export default function SideBarMenu({
                           <AvatarImage
                             alt={user?.fullName}
                             className="rounded-full border-2"
-                            src={'/logoImg.png'}
+                            src={user?.imgFullPath}
                           />
                           <AvatarFallback>
                             <Image
@@ -199,7 +199,7 @@ export default function SideBarMenu({
                               width={100}
                               height={100}
                               className="rounded-full"
-                              src={'/logoImg.png'}
+                              src={'/Gym.png'}
                             />
                           </AvatarFallback>
                         </Avatar>
