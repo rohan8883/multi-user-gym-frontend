@@ -38,6 +38,7 @@ const ForgetPassword = lazyWithRetries(
 );
 
 const Home = lazyWithRetries(() => import('@/pages/gym-app/home'));
+const LandingPage = lazyWithRetries(() => import('@/pages/gym-app/landing-page'));
 const Profile = lazyWithRetries(() => import('@/pages/gym-app/profile'));
 const ChangePassword = lazyWithRetries(
   () => import('@/pages/gym-app/change-password')
@@ -139,7 +140,7 @@ const routes: Route[] = [
         name: 'Otp Login',
         path: 'otp-login',
         element: <OtpLogin />
-      }
+      },
     ]
   },
 
@@ -255,12 +256,12 @@ const routes: Route[] = [
         path: 'change-password',
         element: <ChangePassword />
       },
-      {
-        id: '19',
-        name: 'Add Owner',
-        path: 'add-owner',
-        element: <AddOwner />
-      },
+      // {
+      //   id: '19',
+      //   name: 'Add Owner',
+      //   path: 'add-owner',
+      //   element: <AddOwner />
+      // },
       {
         id: '20',
         name: 'Owner List',
@@ -290,7 +291,19 @@ const routes: Route[] = [
         name: 'Guest Id Card',
         path: 'guest-id-card/:id',
         element: <GuestIdCard />
-      }
+      },
+      {
+        id: '3',
+        name: 'Landing Page',
+        path: 'landing-page',
+        element: <LandingPage />
+      },
+      {
+        id: '4',
+        name: 'Add Owner',
+        path: 'add-owner',
+        element: <AddOwner />
+      },
     ]
   }
 ];
