@@ -301,7 +301,7 @@ const routes: Route[] = [
       {
         id: '4',
         name: 'Add Owner',
-        path: 'add-owner',
+        path: 'registration-form',
         element: <AddOwner />
       },
     ]

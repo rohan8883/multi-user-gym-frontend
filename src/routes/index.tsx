@@ -9,7 +9,8 @@ export default function AllRoutes() {
     <Routes>
       <Route
         path="/gym-app"
-        element={<Navigate to="/gym-app/auth/login" />}
+        element={<Navigate to="/gym-app/landing-page" />}
+        // element={<Navigate to="/gym-app/auth/login" />}
         index={true}
       />
 

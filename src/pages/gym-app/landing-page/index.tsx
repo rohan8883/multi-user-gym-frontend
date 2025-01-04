@@ -1,3 +1,4 @@
+import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { BarChart, Calendar, CheckCircle2, Dumbbell, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -9,20 +10,17 @@ export default function LandingPage() {
     <div className="flex flex-col min-h-screen">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-14 items-center">
-          <Link to="/" className="flex items-center space-x-2">
-            <Dumbbell className="h-6 w-6" />
-            <span className="font-bold">GymSphere</span>
-          </Link>
+       
+        <Avatar className="w-12 h-12 border  dark:border-gray-700">
+            <AvatarImage src="/Gym.png" alt="@shadcn" />
+          </Avatar>
+          <span className="font-bold">GymSphere</span>
+          
           <nav className="ml-auto flex gap-4 sm:gap-6">
-            <Link className="text-sm font-medium hover:underline underline-offset-4" to="/gym-app/add-owner">
+            <Link className="text-sm font-medium hover:underline underline-offset-4" to="/gym-app/registration-form">
               Features
             </Link>
-            <Link className="text-sm font-medium hover:underline underline-offset-4" to="#pricing">
-              Pricing
-            </Link>
-            <Link className="text-sm font-medium hover:underline underline-offset-4" to="#testimonials">
-              Testimonials
-            </Link>
+            
           </nav>
         </div>
       </header>
@@ -30,7 +28,7 @@ export default function LandingPage() {
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 relative">
           <div className="absolute inset-0 z-0">
             <img
-              src="/Trans.png"
+              src="/gym-bg.jpg"
               alt="GymSphere Admin Dashboard"
               className="absolute inset-0 w-full h-full object-cover"
             />
@@ -47,8 +45,8 @@ export default function LandingPage() {
                 </p>
               </div>
               <div className="space-x-4">
-                <Button className="bg-white text-primary hover:bg-gray-100">Start Free Trial</Button>
-                <Button variant="outline" className="text-white border-white hover:bg-white hover:text-primary">Book a Demo</Button>
+              <Link to="/gym-app/registration-form"> <Button className="bg-white text-primary hover:bg-gray-100">Registration</Button> </Link>
+            <Link to="/gym-app/auth/login"><Button variant="outline" className=" border-white  text-primary">SingIn</Button></Link>    
               </div>
             </div>
           </div>

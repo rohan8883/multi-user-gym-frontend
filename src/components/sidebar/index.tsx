@@ -36,7 +36,7 @@ const AdminSideBar = [
   {
     icon: User,
     label: 'Add Owner',
-    path: '/gym-app/add-owner'
+    path: '/gym-app/registration-form'
   },
   {
     icon: List,
@@ -70,16 +70,7 @@ const AdminSideBar = [
   }
 ];
 const SideBar = [
-  // {
-  //   icon: User,
-  //   label: 'Add Owner',
-  //   path: '/gym-app/add-owner'
-  // },
-  // {
-  //   icon: List,
-  //   label: 'Owners List',
-  //   path: '/gym-app/owner-list'
-  // },
+
   {
     icon: User,
     label: 'Add Member',
@@ -90,11 +81,7 @@ const SideBar = [
     label: 'Plan Master List',
     path: '/gym-app/masters/plan'
   },
-  // {
-  //   icon: List,
-  //   label: 'Month Master List',
-  //   path: '/gym-app/masters/month'
-  // },
+
   {
     icon: List,
     label: 'Plan Mapping List',

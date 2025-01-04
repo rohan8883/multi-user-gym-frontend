@@ -68,7 +68,7 @@ export default function OwnerList() {
         <Button
           size={'sm'}
           className="bg-primary text-white"
-          onClick={() => navigate('/gym-app/add-owner')}
+          onClick={() => navigate('/gym-app/registration-form')}
         >
           <Plus size={20} />
           <h1 className="ms-1 text-xs">Add Owner</h1>
