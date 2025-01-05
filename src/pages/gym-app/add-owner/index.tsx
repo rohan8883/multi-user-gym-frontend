@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-
+import EditDialogBox from '@/components/edit-dialog-box'
 import * as yup from 'yup';
 import Page from '@/components/helmet-page';
 import { usePostMutation } from '@/hooks/useCustomQuery';
@@ -20,6 +20,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { Confirm } from '@/components/react-confirm-box';
 import { resizeFile } from '@/lib/resizeImage';
+import { Button } from '@/components/ui/button';
 
 
 const schema = yup.object().shape({
@@ -39,7 +40,12 @@ type AddMemberType = yup.InferType<typeof schema>;
 export default function AddOwner() {
   const navigate = useNavigate();
   const createMemberMutation = usePostMutation({});
-
+  const sendOtpMutation = usePostMutation({});
+  const verifyOtpMutation = usePostMutation({});
+  const [openOtpModal, setOpenOtpModal] = useState(false);
+  const [closeModal, setCloseModal] = useState(false)
+  const [otp, setOtp] = useState('');
+  const [isConfirmed, setIsConfirmed] = useState(false);
   const [files, setFiles] = useState<File[] | null>(null);
   const [compressImg, setCompressImg] = useState<
     File | Blob | null | undefined
@@ -56,8 +62,10 @@ export default function AddOwner() {
     },
     resolver: yupResolver(schema)
   });
+  console.log(closeModal);
 
   const onSubmit = async (data: AddMemberType) => {
+
     const formData = new FormData();
     formData.append('fullName', data.fullName);
     formData.append('gymName', data.gymName);
@@ -75,8 +83,6 @@ export default function AddOwner() {
         });
         if (result.data.success) {
           toast.success(result.data.message);
-
-          // navigate(`/gym-app/view-owner/${result.data.data._id}`);
           navigate(`/gym-app/auth/login`);
         } else {
           toast.error(result.data.message);
@@ -108,96 +114,179 @@ export default function AddOwner() {
     }
   }, [files]);
 
+  const handleEmailSubmit = async () => {
+    try {
+      const response = await sendOtpMutation.mutateAsync({
+        api: gymApi.sendOtp,
+        data: { email: method.watch('email') },
+      });
+
+      if (response?.data?.success) {
+        toast.success('OTP sent to your email');
+        setOpenOtpModal(true);
+      } else {
+        toast.error('Error sending OTP');
+      }
+    } catch (error) {
+    }
+  };
+
+  // Handle OTP verification
+  const verifyOtp = async () => {
+    try {
+      const response = await verifyOtpMutation.mutateAsync({
+        api: gymApi.verifyEmailOtp,
+        data: { otp, email: method.watch('email') },
+      });
+
+      if (response?.data?.success) {
+        toast.success(response?.data?.message);
+        setOpenOtpModal(false);
+
+      } else {
+        toast.error(response?.data?.message);
+      }
+    } catch (error: any) {
+    }
+  };
+
+
   return (
-    <div className='space-y-3 min-h-screen bg-gradient-to-b from-blue-50 to-blue-100'>
-      <Navbar/>
-      <Page title="Registration Form " className='border mx-auto md:w-1/2 bg-white shadow-md rounded-lg'>
-
-        <div className="flex items-center justify-between mt-4 ">
-          <h1 className="text-base font-semibold text-muted-foreground">
-            Registration Form
-          </h1>
+    <>
+      <EditDialogBox open={openOtpModal} setOpen={setOpenOtpModal} title="OTP Send to your Registered Email " setEdit={setCloseModal}>
+        <div style={{ zIndex: 100000 }} className="p-6">
+          <h2 className="text-lg font-bold mb-4">Enter OTP</h2>
+          <form onSubmit={(e) => e.preventDefault()}>
+            <input
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+              type="text"
+              placeholder="Enter OTP"
+              className="input-field w-full border border-gray-300 rounded-md p-2"
+            />
+            <div>
+              <ButtonLoading
+                type="button"
+                onClick={verifyOtp}
+                className="w-full rounded-xl py-5 px-4 mt-2 shadow-none"
+                variant="outline"
+              >
+                Verify OTP
+              </ButtonLoading>
+            </div>
+          </form>
         </div>
-        <div className="border-t border-secondary mt-3"></div>
-        <FormProviders methods={method} onSubmit={method.handleSubmit(onSubmit)}>
-          <div className="mt-4">
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <RHFTextField
-                  name="fullName"
-                  label="Owner Name"
-                  placeholder="Enter Owner Name"
-                />
-              </div>
-              <div>
-                <RHFTextField
-                  name="email"
-                  label="Email"
-                  placeholder="Enter Email"
-                />
-              </div>
+      </EditDialogBox>
 
-              <div>
-                <RHFTextField
-                  name="mobile"
-                  label="Mobile"
-                  placeholder="Enter Mobile"
-                  inputValidation={['mobile', 'number']}
-                />
-              </div>
-              <div>
-                <RHFTextField
-                  name="gymName"
-                  label="Gym Name"
-                  placeholder="Enter Gym Name"
-                />
-              </div>
-              <div>
-                <RHFTextField
-                  name="password"
-                  label="Password"
-                  placeholder="Enter Password"
-                />
-              </div>
+      <div className='space-y-3 min-h-screen bg-gradient-to-b from-blue-50 to-blue-100'>
+        <Navbar />
+        <Page title="Registration Form " className='border mx-auto md:w-1/2 bg-white shadow-md rounded-lg'>
+
+          <div className="flex items-center justify-between mt-4 ">
+            <h1 className="text-base font-semibold text-muted-foreground">
+              Registration Form
+            </h1>
+          </div>
+          <div className="border-t border-secondary mt-3"></div>
+          <FormProviders methods={method} onSubmit={method.handleSubmit(onSubmit)}>
+            <div className="mt-4">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <RHFTextField
+                    name="fullName"
+                    label="Owner Name"
+                    placeholder="Enter Owner Name"
+                  />
+                </div>
+                <div>
+                  <RHFTextField
+                    name="email"
+                    label="Email"
+                    placeholder="Enter Email"
+                  />
+                </div>
+
+                <div>
+                  <RHFTextField
+                    name="mobile"
+                    label="Mobile"
+                    placeholder="Enter Mobile"
+                    inputValidation={['mobile', 'number']}
+                  />
+                </div>
+                <div>
+                  <RHFTextField
+                    name="gymName"
+                    label="Gym Name"
+                    placeholder="Enter Gym Name"
+                  />
+                </div>
+                <div>
+                  <RHFTextField
+                    name="password"
+                    label="Password"
+                    placeholder="Enter Password"
+                  />
+                </div>
 
 
-              <div className="col-span-2">
-                <FileUpload
-                  onChangeValue={setFiles}
-                  files={files}
-                  maxFiles={1}
-                  maxSize={
-                    // 20MB
-                    20 * 1024 * 1024
-                  }
-                  accept="image/*"
-                  multiple={false}
-                />
-              </div>
+                <div className="col-span-2">
+                  <FileUpload
+                    onChangeValue={setFiles}
+                    files={files}
+                    maxFiles={1}
+                    maxSize={
+                      // 20MB
+                      20 * 1024 * 1024
+                    }
+                    accept="image/*"
+                    multiple={false}
+                  />
+                </div>
 
-              <div className="col-span-2">
-                <RHFTextArea
-                  name="address"
-                  label="Address"
-                  placeholder="Enter Address"
-                />
+                <div className="col-span-2">
+                  <RHFTextArea
+                    name="address"
+                    label="Address"
+                    placeholder="Enter Address"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className="mt-8 flex justify-center mb-4">
-            <ButtonLoading
-              type="submit"
-              className="bg-primary text-white"
-              isLoading={createMemberMutation.isPending}
-            >
+            <div className="mt-4 flex items-center">
+              <input
+                type="checkbox"
+                id="confirmDetails"
+                checked={isConfirmed}
+                onChange={(e) => {
+                  setIsConfirmed(e.target.checked)
+                  { !isConfirmed && handleEmailSubmit() }
+                }}
+                className="mr-2"
+              />
+              <label htmlFor="confirmDetails" className="text-sm text-gray-600">
+                I confirm all details are correct.
+              </label>
+            </div>
+            {isConfirmed == false ? <div className="flex items-center justify-center  ">
+              <div  className="px-4 py-1 text-base border rounded-md bg-gray-200 cursor-pointer">
               Registration
-            </ButtonLoading>
-          </div>
-        </FormProviders>
-      </Page>
+              </div>
+            </div> : <div className="mt-8 flex justify-center mb-4">
+              <ButtonLoading
+                type="submit"
+                className="bg-primary text-white"
+                isLoading={createMemberMutation.isPending}
+              >
+                Registration
+              </ButtonLoading>
+            </div>}
+          </FormProviders>
+        </Page>
 
-      <Footer/>
-    </div>
+        <Footer />
+      </div>
+    </>
+
   );
 }

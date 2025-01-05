@@ -32,8 +32,10 @@ export const gymApi = {
   getUserById: '/user/edit',
   updateUserStatus: '/user/update-user-status',
 
+  sendOtp: '/otp/send-otp',
+  verifyEmailOtp: '/otp/verify-otp',
 
-  createOwner: '/guest-member/create-owner',
+  createOwner: '/guest-member/create-owneree',
   getAllOwners: '/member/get-owners',
   getOwner: '/member/get-owner-by-id',
   updateOwner: '/member/update-owner',
