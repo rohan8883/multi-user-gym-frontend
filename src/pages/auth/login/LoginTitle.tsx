@@ -17,7 +17,7 @@ export default function LoginTitle() {
 
       <h1 className="text-xl font-bold text-center mt-4 text-primary">
         {/* title */}
-        Welcome To
+        Welcome Back To
       </h1>
       <h1 className="text-2xl font-bold text-center text-primary">
         {/* title */}

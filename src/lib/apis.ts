@@ -33,7 +33,7 @@ export const gymApi = {
   updateUserStatus: '/user/update-user-status',
 
 
-  createOwner: '/member/create-owner',
+  createOwner: '/guest-member/create-owner',
   getAllOwners: '/member/get-owners',
   getOwner: '/member/get-owner-by-id',
   updateOwner: '/member/update-owner',

@@ -77,7 +77,7 @@ export default function AddOwner() {
           toast.success(result.data.message);
 
           // navigate(`/gym-app/view-owner/${result.data.data._id}`);
-          navigate(`/gym-app/owner-list`);
+          navigate(`/gym-app/auth/login`);
         } else {
           toast.error(result.data.message);
         }
