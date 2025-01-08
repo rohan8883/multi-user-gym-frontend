@@ -153,8 +153,9 @@ export default function AddOwner() {
 
   return (
     <>
-      <EditDialogBox open={openOtpModal} setOpen={setOpenOtpModal} title="OTP Send to your Registered Email " setEdit={setCloseModal}>
-        <div style={{ zIndex: 100000 }} className="p-6">
+      <EditDialogBox open={openOtpModal} setOpen={setOpenOtpModal} title="OTP Send to your Registered Email" setEdit={setCloseModal}>
+        <div style={{ zIndex: 100000 }} className="">
+          <h1 className='text-sm font-semibold'>After verifying the OTP, you can proceed with the registration process.</h1>
           <h2 className="text-lg font-bold mb-4">Enter OTP</h2>
           <form onSubmit={(e) => e.preventDefault()}>
             <input
