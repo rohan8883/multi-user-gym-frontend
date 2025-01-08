@@ -20,7 +20,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { Confirm } from '@/components/react-confirm-box';
 import { resizeFile } from '@/lib/resizeImage';
-import { Button } from '@/components/ui/button';
+// import { Button } from '@/components/ui/button';
 
 
 const schema = yup.object().shape({

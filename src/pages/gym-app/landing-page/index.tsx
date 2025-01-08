@@ -114,8 +114,8 @@ export default function LandingPage() {
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">What Gym Owners Say</h2>
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
               {[
-                { name: 'Sarah L., Fitness Center Owner', text: "GymSphere has revolutionized how we manage our gym. The member management and scheduling features have saved us countless hours." },
-                { name: 'Mike T., CrossFit Box Manager', text: "The analytics provided by GymSphere have been instrumental in growing our business. We can now make data-driven decisions with ease." }
+                { name: 'Sandeep Gupta, Fitness Firsts Owner', text: "GymSphere has revolutionized how we manage our gym. The member management and scheduling features have saved us countless hours." },
+                { name: 'Ramesh Singh, Iron GYM owner', text: "The analytics provided by GymSphere have been instrumental in growing our business. We can now make data-driven decisions with ease." }
               ].map((testimonial, index) => (
                 <div key={index} className="flex flex-col p-6 bg-white dark:bg-gray-700 rounded-lg shadow-lg">
                   <p className="text-gray-500 dark:text-gray-300 mb-4">"{testimonial.text}"</p>
