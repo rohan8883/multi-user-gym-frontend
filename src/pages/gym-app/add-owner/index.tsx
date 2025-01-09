@@ -64,32 +64,9 @@ export default function AddOwner() {
   });
   console.log(closeModal);
 
-  const onSubmit = async (data: AddMemberType) => {
-
-    const formData = new FormData();
-    formData.append('fullName', data.fullName);
-    formData.append('gymName', data.gymName);
-    formData.append('password', data.password);
-    formData.append('address', data.address);
-    formData.append('mobile', data.mobile);
-    formData.append('email', data?.email ?? '');
-    formData.append('imageUrl', compressImg as Blob);
-
-    Confirm('Are you sure?', 'Do you want to add this Owner?', async () => {
-      try {
-        const result = await createMemberMutation.mutateAsync({
-          api: gymApi.createOwner,
-          data: formData
-        });
-        if (result.data.success) {
-          toast.success(result.data.message);
-          navigate(`/gym-app/auth/login`);
-        } else {
-          toast.error(result.data.message);
-        }
-      } catch (error) {
-        toast.error('Something went wrong');
-      }
+  const onSubmit = async () => {
+Confirm('Are you sure?', 'Do you want to add this Owner?', async () => {
+  handleEmailSubmit()
     });
   };
 
@@ -142,6 +119,7 @@ export default function AddOwner() {
       if (response?.data?.success) {
         toast.success(response?.data?.message);
         setOpenOtpModal(false);
+        // submitData()
 
       } else {
         toast.error(response?.data?.message);
@@ -150,7 +128,30 @@ export default function AddOwner() {
     }
   };
 
-
+const submitData = async(data: AddMemberType) =>  {
+  const formData = new FormData();
+  formData.append('fullName', data.fullName);
+  formData.append('gymName', data.gymName);
+  formData.append('password', data.password);
+  formData.append('address', data.address);
+  formData.append('mobile', data.mobile);
+  formData.append('email', data?.email ?? '');
+  formData.append('imageUrl', compressImg as Blob);
+  try {
+    const result = await createMemberMutation.mutateAsync({
+      api: gymApi.createOwner,
+      data: formData
+    });
+    if (result.data.success) {
+      toast.success(result.data.message);
+      navigate(`/gym-app/auth/login`);
+    } else {
+      toast.error(result.data.message);
+    }
+  } catch (error) {
+    toast.error('Something went wrong');
+  }
+};
   return (
     <>
       <EditDialogBox open={openOtpModal} setOpen={setOpenOtpModal} title="OTP Send to your Registered Email" setEdit={setCloseModal}>
@@ -254,26 +255,8 @@ export default function AddOwner() {
                 </div>
               </div>
             </div>
-            <div className="mt-4 flex items-center">
-              <input
-                type="checkbox"
-                id="confirmDetails"
-                checked={isConfirmed}
-                onChange={(e) => {
-                  setIsConfirmed(e.target.checked)
-                  { !isConfirmed && handleEmailSubmit() }
-                }}
-                className="mr-2"
-              />
-              <label htmlFor="confirmDetails" className="text-sm text-gray-600">
-                I confirm all details are correct.
-              </label>
-            </div>
-            {isConfirmed == false ? <div className="flex items-center justify-center  ">
-              <div  className="px-4 py-1 text-base border rounded-md bg-gray-200 cursor-pointer">
-              Registration
-              </div>
-            </div> : <div className="mt-8 flex justify-center mb-4">
+            
+           <div className="mt-8 flex justify-center mb-4">
               <ButtonLoading
                 type="submit"
                 className="bg-primary text-white"
@@ -281,7 +264,7 @@ export default function AddOwner() {
               >
                 Registration
               </ButtonLoading>
-            </div>}
+            </div>
           </FormProviders>
         </Page>
 
