@@ -45,7 +45,6 @@ export default function AddOwner() {
   const [openOtpModal, setOpenOtpModal] = useState(false);
   const [closeModal, setCloseModal] = useState(false)
   const [otp, setOtp] = useState('');
-  const [isConfirmed, setIsConfirmed] = useState(false);
   const [files, setFiles] = useState<File[] | null>(null);
   const [compressImg, setCompressImg] = useState<
     File | Blob | null | undefined
@@ -119,7 +118,7 @@ Confirm('Are you sure?', 'Do you want to add this Owner?', async () => {
       if (response?.data?.success) {
         toast.success(response?.data?.message);
         setOpenOtpModal(false);
-        // submitData()
+        submitData()
 
       } else {
         toast.error(response?.data?.message);
@@ -128,14 +127,14 @@ Confirm('Are you sure?', 'Do you want to add this Owner?', async () => {
     }
   };
 
-const submitData = async(data: AddMemberType) =>  {
+const submitData = async() =>  {
   const formData = new FormData();
-  formData.append('fullName', data.fullName);
-  formData.append('gymName', data.gymName);
-  formData.append('password', data.password);
-  formData.append('address', data.address);
-  formData.append('mobile', data.mobile);
-  formData.append('email', data?.email ?? '');
+  formData.append('fullName', method.watch('fullName'));
+  formData.append('gymName', method.watch('gymName'));
+  formData.append('password', method.watch('password'));
+  formData.append('address',method.watch('address'));
+  formData.append('mobile', method.watch('mobile'));
+  formData.append('email', method.watch('email')?? '');
   formData.append('imageUrl', compressImg as Blob);
   try {
     const result = await createMemberMutation.mutateAsync({
@@ -156,7 +155,7 @@ const submitData = async(data: AddMemberType) =>  {
     <>
       <EditDialogBox open={openOtpModal} setOpen={setOpenOtpModal} title="OTP Send to your Registered Email" setEdit={setCloseModal}>
         <div style={{ zIndex: 100000 }} className="">
-          <h1 className='text-sm font-semibold'>After verifying the OTP, you can proceed with the registration process.</h1>
+          <h1 className='text-sm font-semibold'>After verifying the OTP, you can proceed with the registration.</h1>
           <h2 className="text-lg font-bold mb-4">Enter OTP</h2>
           <form onSubmit={(e) => e.preventDefault()}>
             <input
@@ -173,7 +172,7 @@ const submitData = async(data: AddMemberType) =>  {
                 className="w-full rounded-xl py-5 px-4 mt-2 shadow-none"
                 variant="outline"
               >
-                Verify OTP
+                Verify & Register
               </ButtonLoading>
             </div>
           </form>
