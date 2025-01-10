@@ -29,9 +29,11 @@ const schema = yup.object().shape({
   address: yup.string().required('Address is required'),
   mobile: yup.string().required('Mobile is required'),
   password: yup.string().required('Password is required'),
+  cPassword: yup
+    .string()
+    .oneOf([yup.ref('password')], 'Passwords must match')
+    .required('Enter Confirm Password'),
   email: yup.string().required().email().label('Email'),
-  // email: yup.string().notRequired().email().label('Email'),
-  //  imageUrl not required
   imageUrl: yup.mixed().nullable(),
 });
 
@@ -179,9 +181,14 @@ const submitData = async() =>  {
         </div>
       </EditDialogBox>
 
-      <div className='space-y-3 min-h-screen bg-gradient-to-b from-blue-50 to-blue-100'>
+      <div className=''>
+      <div
+      className="object-cover bg-center  items-center justify-center   z-0"
+      style={{ backgroundImage: `url('/bgImg.jpg')` }}
+      >
+        
         <Navbar />
-        <Page title="Registration Form " className='border mx-auto md:w-1/2 bg-white shadow-md rounded-lg'>
+        <Page title="Registration Form " className='border mx-auto md:w-1/2 mt-10 mb-10 z-50 relative  shadow-md rounded-lg'>
 
           <div className="flex items-center justify-between mt-4 ">
             <h1 className="text-base font-semibold text-muted-foreground">
@@ -229,6 +236,13 @@ const submitData = async() =>  {
                     placeholder="Enter Password"
                   />
                 </div>
+                <div>
+                  <RHFTextField
+                    name="cPassword"
+                    label="Confirm Password"
+                    placeholder="Enter Confirm Password"
+                  />
+                </div>
 
 
                 <div className="col-span-2">
@@ -268,6 +282,7 @@ const submitData = async() =>  {
         </Page>
 
         <Footer />
+      </div>
       </div>
     </>
 

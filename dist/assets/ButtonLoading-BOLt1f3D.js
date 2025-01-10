@@ -1,1 +1,0 @@
-import{j as t,B as o,T as e}from"./index-5LZ_nlU9.js";function m({isLoading:s,children:a,...n}){return t.jsxs(o,{...n,disabled:s,children:[s&&t.jsx(e,{className:"mr-2 h-4 w-4 animate-spin"}),s?"Loading...":a]})}export{m as B};

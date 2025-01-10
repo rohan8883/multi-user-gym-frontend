@@ -1,6 +1,6 @@
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { BarChart, Calendar, CheckCircle2, Dumbbell, Users } from 'lucide-react';
+import { BarChart, Calendar, Dumbbell, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 
@@ -8,19 +8,19 @@ export default function LandingPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-14 items-center">
-       
-        <Avatar className="w-12 h-12 border  dark:border-gray-700">
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur   supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-14 items-center opacity-90">
+
+          <Avatar className="w-12 h-12 border  dark:border-gray-700">
             <AvatarImage src="/Gym.png" alt="@shadcn" />
           </Avatar>
           <span className="font-bold">GymSphere</span>
-          
+
           <nav className="ml-auto flex gap-4 sm:gap-6">
             <Link className="text-sm font-medium hover:underline underline-offset-4" to="/gym-app/registration-form">
               Features
             </Link>
-            
+
           </nav>
         </div>
       </header>
@@ -28,7 +28,7 @@ export default function LandingPage() {
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 relative">
           <div className="absolute inset-0 z-0">
             <img
-              src="/gym-bg.jpg"
+              src="/gym6.jpg"
               alt="GymSphere Admin Dashboard"
               className="absolute inset-0 w-full h-full object-cover"
             />
@@ -45,8 +45,8 @@ export default function LandingPage() {
                 </p>
               </div>
               <div className="space-x-4">
-              <Link to="/gym-app/registration-form"> <Button className="bg-white text-primary hover:bg-gray-100">Registration</Button> </Link>
-            <Link to="/gym-app/auth/login"><Button variant="outline" className=" border-white  text-primary">SingIn</Button></Link>    
+                <Link to="/gym-app/registration-form"> <Button className="bg-white text-primary hover:bg-gray-100">Registration</Button> </Link>
+                <Link to="/gym-app/auth/login"><Button variant="outline" className=" border-white  text-primary">SingIn</Button></Link>
               </div>
             </div>
           </div>
@@ -71,41 +71,48 @@ export default function LandingPage() {
               </div>
               <div className="flex flex-col items-center space-y-4">
                 <BarChart className="h-12 w-12 text-primary" />
-                <h3 className="text-xl font-bold">Performance Analytics</h3>
+                <h3 className="text-xl font-bold">Promote Accessibility and Scalability</h3>
                 <p className="text-gray-500 dark:text-gray-400 text-center">
-                  Gain insights into your gym's performance with detailed reports and analytics.
+                  Develop a user-friendly, mobile-responsive platform that can scale with the growth of fitness businesses of all sizes.
                 </p>
               </div>
             </div>
           </div>
         </section>
-        <section id="pricing" className="w-full py-12 md:py-24 lg:py-32">
+        <section id="pricing" className="w-full py-8 ">
           <div className="container px-4 md:px-6">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">Pricing Plans</h2>
-            <div className="grid gap-6 lg:grid-cols-3 lg:gap-12">
-              {['Basic', 'Pro', 'Enterprise'].map((plan, index) => (
-                <div key={plan} className="flex flex-col p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
-                  <h3 className="text-2xl font-bold text-center mb-4">{plan}</h3>
-                  <p className="text-4xl font-bold text-center mb-6">
-                    ${[49, 99, 199][index]}<span className="text-sm font-normal">/month</span>
-                  </p>
-                  <ul className="space-y-2 mb-6">
-                    {[
-                      'Member management',
-                      'Class scheduling',
-                      'Payment processing',
-                      ...(index > 0 ? ['Performance analytics', 'Email marketing'] : []),
-                      ...(index > 1 ? ['Multi-location support', 'API access'] : [])
-                    ].map((feature, i) => (
-                      <li key={i} className="flex items-center">
-                        <CheckCircle2 className="h-5 w-5 text-green-500 mr-2" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  <Button className="mt-auto">Choose Plan</Button>
+            {/* <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-3">Pricing Plans</h2> */}
+            <div className="grid gap-6 lg:grid-cols-2 md:mx-20 lg:gap-12 ">
+
+              <div className="flex flex-col justify-center items-center  bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+                <img src="/gm-bg.jpg" alt="" />
+              </div>
+              <div className="flex flex-col  ">
+                <div
+                  className="object-cover bg-center  items-center justify-center   z-0"
+                  style={{ backgroundImage: `url('')` }}
+                >
+
+                  <div className='py-9 space-y-5'>
+                    <div>
+                      <h1 className='text-xl font-bold '>Streamline Gym Operations</h1>
+                      <p className='font-semibold'>Provide a comprehensive management system to automate administrative tasks, track member attendance, and manage payments effortlessly.
+                      </p>
+                    </div>
+                    <div>
+                      <h1 className='text-xl font-bold'>Enhance Member Experience</h1>
+                      <p className='font-semibold'>Enable personalized experiences with features like workout plans,
+                        progress tracking, and session booking to keep members engaged and motivated.
+                      </p>
+                    </div>
+                    <div>
+                      <h1 className='text-xl font-bold'>Support Financial Growth</h1>
+                      <p className='font-semibold'>Offer detailed reports and analytics to help gym owners optimize their revenue, monitor subscription renewals, and manage expenses effectively.
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              ))}
+              </div>
             </div>
           </div>
         </section>
@@ -136,7 +143,7 @@ export default function LandingPage() {
                   Join GymSphere today and experience the difference efficient admin tools can make for your business.
                 </p>
               </div>
-              <Button className="bg-white text-primary hover:bg-gray-100">Start Your Free Trial</Button>
+              <Link to="/gym-app/registration-form" > <Button className="bg-white text-primary hover:bg-gray-100">Start Your Free Trial</Button></Link>
             </div>
           </div>
         </section>
