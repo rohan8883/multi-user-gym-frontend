@@ -246,7 +246,7 @@ export default function SideBarMenu({
                   <MenubarItem
                     className="flex space-x-2 items-center justify-start"
                     onClick={() => {
-                      navigate('/gym-app');
+                      navigate('/gym-app/home');
                     }}
                   >
                     <HomeIcon className="h-5 w-5" />

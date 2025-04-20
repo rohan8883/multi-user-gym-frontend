@@ -62,6 +62,15 @@ export default function Home() {
       href: string;
     }[]
   >([]);
+  const [memberRecentExpired, setMemberRecentExpired] = useState<
+    {
+      title: string;
+      amount: number | null;
+      color: string;
+      bg: string;
+      href: string;
+    }[]
+  >([]);
   const countData = useApi<I_COUNT_TYPE>({
     api: gymApi.getCount,
     key: 'countData',
@@ -129,7 +138,47 @@ export default function Home() {
           href: '/gym-app/exp-subscription'
         }
       ];
+      const memberRecentExpired = [
+        {
+          title: 'Expire in  5 days',
+          amount: countData.data?.data?.activeMember ?? 0,
+          color: 'text-blue-500',
+          bg: 'bg-green-400/10',
+          href: '/gym-app/member-list?member-status='
+        },
+        // {
+        //   title: 'Total Members',
+        //   amount:
+        //     countData.data?.data?.activeMember! +
+        //       countData.data?.data?.inActiveMember! || 0,
+        //   color: 'text-blue-500',
+        //   bg: 'bg-blue-300/10',
+        //   href: '/gym-app/member-list?member-status='
+        // },
+        // {
+        //   title: 'Active Members',
+        //   amount: countData.data?.data?.activeMember ?? 0,
+        //   color: 'text-green-500',
+        //   bg: 'bg-green-300/10',
+        //   href: '/gym-app/member-list?member-status=1'
+        // },
+        // {
+        //   title: 'InActive Members',
+        //   amount: countData.data?.data?.inActiveMember ?? 0,
+        //   color: 'text-red-500',
+        //   bg: 'bg-red-300/10',
+        //   href: '/gym-app/member-list?member-status=0'
+        // },
+        {
+          title: 'Expiring Today',
+          amount: countData.data?.data?.expiredSub ?? 0,
+          color: 'text-red-500',
+          bg: 'bg-yellow-300/10',
+          href: '/gym-app/exp-subscription'
+        }
+      ];
       setMemberCount(memberCount);
+      setMemberRecentExpired(memberRecentExpired);
     }
   }, [countData?.data]);
 
@@ -186,9 +235,29 @@ export default function Home() {
           <Link to={data.href} key={index + 1}>
             <Card
               key={index + 1}
-              className={`shadow-none rounded-2xl ${data.bg}`}
+              className={`shadow-none  ${data.bg}`}
             >
-              <div className="px-4 py-5">
+              <div className="px-4 py-2">
+                <div className="flex items-center gap-1">
+                  <User size={20} className={data.color} />
+                  <span className={`text-lg font-semibold ${data.color}`}>
+                    <CountUp end={data.amount!} duration={3} />
+                  </span>
+                </div>
+                <h1 className="text-xs font-semibold">{data.title}</h1>
+              </div>
+            </Card>
+          </Link>
+        ))}
+      </div>
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-4 mt-2">
+        {memberRecentExpired?.map((data, index) => (
+          <Link to={data.href} key={index + 1}>
+            <Card
+              key={index + 1}
+              className={`shadow-none  ${data.bg}`}
+            >
+              <div className="px-4 py-2">
                 <div className="flex items-center gap-1">
                   <User size={20} className={data.color} />
                   <span className={`text-lg font-semibold ${data.color}`}>
